@@ -1,0 +1,115 @@
+import mongoose from "mongoose";
+
+const orderSchema = new mongoose.Schema({
+    paymentId: {
+        type: String,
+        required: true,
+    },
+    products: [
+        {
+            name: {
+                type: String,
+            },
+            image: {
+                type: String,
+            },
+            brandName: {
+                type: String,
+            },
+            price: {
+                type: Number,
+            },
+            discountPrice: {
+                type: Number,
+            },
+            quantity: {
+                type: Number,
+                default: 1,
+            },
+            productId: {
+                type: String,
+                required: true,
+            },
+            seller: {
+                type: mongoose.Schema.ObjectId,
+                ref: "User",
+            },
+        },
+    ],
+
+    buyer: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    shippingInfo: {
+        name: {
+            type: String,
+        },
+        email: {
+            type: String,
+        },
+        locality: {
+            type: String,
+        },
+        address: {
+            type: String,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        state: {
+            type: String,
+            required: true,
+        },
+        country: {
+            type: String,
+            required: true,
+        },
+        pincode: {
+            type: String,
+            required: true,
+        },
+        phoneNo: {
+            type: String,
+            required: true,
+        },
+        alternatePhoneNo: {
+            type: String,
+        },
+        landmark: {
+            type: String,
+        },
+    },
+    orderStatus: {
+        type: String,
+        default: "Processing",
+    },
+    amount: {
+        type: Number,
+        default: 0,
+    },
+    deliveredAt: Date,
+    shippedAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    trackLink: {
+        type: String,
+    },
+    cancelRequest: {
+        type: Boolean,
+        default: false,
+    },
+    cancelReason: {
+        type: String,
+    },
+    canceledAt: {
+        type: Date,
+    }
+});
+
+export default mongoose.model("Orders", orderSchema);
